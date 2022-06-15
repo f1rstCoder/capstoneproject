@@ -38,7 +38,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text(
                           'Choose your default language as',
                           style: TextStyle(
@@ -79,7 +79,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text(
                           'हिन्दी',
                           style: TextStyle(
@@ -120,7 +120,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text(
                           'ਪੰਜਾਬੀ ',
                           style: TextStyle(

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:login/screens/home_screen.dart';
 import 'package:login/screens/language_screen.dart';
 import 'package:login/screens/login_screen.dart';
+import 'package:login/screens/video_screen.dart';
 import 'package:login/screens/registration_screen.dart';
-import 'package:google_language_fonts/google_language_fonts.dart';
+import 'package:login/screens/video_listing.dart';
+// import 'package:google_language_fonts/google_language_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,10 +25,11 @@ class MyApp extends StatelessWidget {
       routes: {
         '/register': (context) => const RegistrationScreen(),
         '/': (context) => const LoginScreen(),
-        '/language': (context) => LanguageScreen(),
-        '/home': (context) => HomeScreen(),
+        '/language': (context) => const LanguageScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/video': (context) => const VideoScreen(),
+        '/listing': (context) => const VideoListing(),
       },
-      //  LoginScreen(),
     );
   }
 }

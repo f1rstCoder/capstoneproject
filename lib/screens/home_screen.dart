@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.account_circle,
               color: Colors.lightBlue,
             ),
@@ -42,9 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  const snackBar = SnackBar(content: Text('Tap'));
-
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  // const snackBar = SnackBar(content: Text('Tap'));
+                  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.pushNamed(context, '/listing');
                 },
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.4,
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ਵੀਡੀਓ',
+                        'Video',
                         style: TextStyle(
                           color: Colors.lightBlue,
                           fontSize: 32,
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'ਖੇਡਾਂ',
+                        'Games',
                         style: TextStyle(
                           color: Colors.lightBlue,
                           fontSize: 32,
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 child: Text(
-                  'ਪੱਧਰ : 1',
+                  'Level : 1',
                   style: TextStyle(
                     color: Colors.lightBlue,
                     fontSize: 26,
