@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const LoginScreen(),
         '/language': (context) => const LanguageScreen(),
         '/home': (context) => const HomeScreen(),
-        '/video': (context) => const VideoScreen(),
+        // '/video': (context) => const VideoScreen(),
         '/listing': (context) => const VideoListing(),
       },
     );

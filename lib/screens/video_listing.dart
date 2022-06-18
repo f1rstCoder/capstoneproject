@@ -3,6 +3,8 @@ import 'package:login/models/video_model.dart';
 import 'package:flutter/services.dart' as bundler;
 import 'dart:convert';
 
+import 'package:login/screens/video_screen.dart';
+
 class VideoListing extends StatefulWidget {
   const VideoListing({Key? key}) : super(key: key);
 
@@ -17,32 +19,39 @@ class _VideoListingState extends State<VideoListing> {
       body: FutureBuilder(
         future: getJsonData(),
         builder: (context, data) {
-          var videos = data.data as List<VideoModel>;
           if (data.hasError) {
             return const Center(
                 child: Text('An Error Occurred! Please Try Refreshing.'));
-          }
-          return ListView.builder(
-            itemCount: videos.length,
-            itemBuilder: (context, index) {
-              return Container(
-                height: MediaQuery.of(context).size.height * 0.1,
-                padding: const EdgeInsets.all(12.0),
-                width: MediaQuery.of(context).size.width,
-                child: GestureDetector(
-                  onTap: () {
-                    const snackBar =
-                        SnackBar(content: Text('Card Tapped For Video'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
-                  child: ListTile(
-                    leading: const Icon(Icons.play_circle),
-                    title: Text(videos[index].title.toString()),
+          } else if (data.hasData) {
+            var videos = data.data as List<VideoModel>;
+            return ListView.builder(
+              itemCount: videos.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  padding: const EdgeInsets.all(12.0),
+                  width: MediaQuery.of(context).size.width,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              VideoScreen(item: videos[index]),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      leading: const Icon(Icons.play_circle),
+                      title: Text(videos[index].title.toString()),
+                    ),
                   ),
-                ),
-              );
-            },
-          );
+                );
+              },
+            );
+          } else {
+            return const Text('Loading...');
+          }
         },
       ),
     );

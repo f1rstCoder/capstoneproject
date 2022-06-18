@@ -1,16 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:login/models/video_model.dart';
-import 'package:flutter/services.dart' as bundler;
-import 'dart:convert';
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
+// import 'package:flutter/services.dart' as bundler;
+// import 'dart:convert';
 
 class VideoScreen extends StatefulWidget {
-  const VideoScreen({Key? key}) : super(key: key);
+  final VideoModel item;
+
+  const VideoScreen({Key? key, required this.item}) : super(key: key);
 
   @override
   State<VideoScreen> createState() => _VideoScreenState();
 }
 
 class _VideoScreenState extends State<VideoScreen> {
+  late VideoPlayerController controller;
+  ChewieController? chewieController;
+
+  void initPlayer() async {
+    print('${widget.item.source}');
+    controller = VideoPlayerController.network('${widget.item.source}');
+    await controller.initialize();
+
+    chewieController = ChewieController(
+        videoPlayerController: controller, autoPlay: true, looping: true);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // print('${widget.item.source}');
+    initPlayer();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    chewieController?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,14 +79,21 @@ class _VideoScreenState extends State<VideoScreen> {
                   const snackBar = SnackBar(content: Text('Tap'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
-                ),
+                child: chewieController != null
+                    // ? AspectRatio(
+                    //     aspectRatio: controller!.value.aspectRatio,
+                    //     child:
+                    ? Chewie(
+                        controller: chewieController!,
+                      )
+                    // )
+                    : Container(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.all(12.0),
+                        child: const Text('I am the video player'),
+                        color: Colors.amberAccent,
+                      ),
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.08,
@@ -69,7 +106,7 @@ class _VideoScreenState extends State<VideoScreen> {
                 //   ),
                 // ),
                 child: Text(
-                  'Title',
+                  '${widget.item.title}',
                   style: TextStyle(
                     letterSpacing: 1.0,
                     color: Color.fromARGB(255, 8, 29, 46),
@@ -99,7 +136,7 @@ class _VideoScreenState extends State<VideoScreen> {
                   ),
                 ),
                 child: Text(
-                  'Description: ',
+                  '${widget.item.description}',
                   style: TextStyle(
                     color: Color.fromARGB(255, 8, 29, 46),
                     fontSize: 26,
